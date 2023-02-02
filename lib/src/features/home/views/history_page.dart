@@ -23,7 +23,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           future: LogController.getCLDS(),
           builder: (context, snp) {
             if (!snp.hasData || snp.data == null) {
-              return AppText.thin("No History found");
+              return Center(child: AppText.thin("No History found"));
             }
             return ListView.builder(
               itemBuilder: (ctx, i) {
