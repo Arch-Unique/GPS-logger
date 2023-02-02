@@ -22,6 +22,7 @@ class LocationController extends GetxController {
 
     LocationData ld = await location.getLocation();
     cld.value = CurrentLD.fromLocationData(ld);
+    location.changeSettings(interval: 60000);
     location.enableBackgroundMode(enable: true);
 
     listenToChangesInLocation();

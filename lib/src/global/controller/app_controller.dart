@@ -20,7 +20,7 @@ class AppController extends GetxController {
   RxBool isAuto = true.obs;
   RxBool isConnected = false.obs;
   RxBool hasStarted = false.obs;
-  Rx<Duration> duration = Duration(seconds: 5).obs;
+  Rx<Duration> duration = Duration(seconds: 60).obs;
   RxList<CurrentLD> clds = <CurrentLD>[].obs;
 
   TextEditingController timeTextController = TextEditingController();

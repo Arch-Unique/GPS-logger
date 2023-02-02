@@ -164,8 +164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               Ui.showBottomSheet(children: [
                                 CustomTextField(
-                                  "5",
-                                  "Enter in seconds (Min: 5,Max: 900)",
+                                  "60",
+                                  "Enter in seconds (Min: 60,Max: 900)",
                                   controller.timeTextController,
                                   varl: FPL.number,
                                 ),
