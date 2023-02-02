@@ -13,6 +13,7 @@ class LogController {
     final dt = DateTime.now().toString();
     Directory("${dir.path}/gpslogger").createSync();
     File file = File("${dir.path}/gpslogger/gpslog-$dt.txt");
+    print(file.path);
     if (file.existsSync()) {
       await file.writeAsString(
         s,
@@ -31,6 +32,8 @@ class LogController {
   static Future<List<MCurrentLD>> getCLDS() async {
     final dir = await getApplicationDocumentsDirectory();
     final f = Directory("${dir.path}/gpslogger").listSync();
+    print(f.length);
+    print("${dir.path}/gpslogger");
     List<MCurrentLD> fg = f
         .map((ele) => MCurrentLD(
             basename(ele.path), ele.path, convertFileToCLD(File(ele.path))))

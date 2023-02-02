@@ -260,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    LogController.saveCLDS(controller.clds);
     super.dispose();
+    LogController.saveCLDS(controller.clds);
   }
 }
