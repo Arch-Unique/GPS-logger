@@ -25,12 +25,6 @@ class _TrackPointScreenState extends State<TrackPointScreen> {
   }
 
   @override
-  void dispose() {
-    LogController.saveCLDS(controller.clds);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SinglePageScaffold(
       title: "Track Points",
@@ -42,7 +36,9 @@ class _TrackPointScreenState extends State<TrackPointScreen> {
                 children: [
                   AppText.thin("${i + 1}  "),
                   Ui.boxWidth(24),
-                  SizedText.thin(cld[i].toString(), space: 8)
+                  SizedText.thin(
+                    cld[i].toString(),
+                  )
                 ],
               ));
         },

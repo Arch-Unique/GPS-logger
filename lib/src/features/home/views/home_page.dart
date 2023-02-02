@@ -8,6 +8,7 @@ import 'package:unn_gps_logger/src/features/home/views/history_page.dart';
 import 'package:unn_gps_logger/src/features/home/views/widgets/custom_dropdown.dart';
 import 'package:unn_gps_logger/src/features/home/views/widgets/trackpoint_list.dart';
 import 'package:unn_gps_logger/src/global/controller/app_controller.dart';
+import 'package:unn_gps_logger/src/global/controller/loading_controller.dart';
 import 'package:unn_gps_logger/src/global/controller/location_controller.dart';
 import 'package:unn_gps_logger/src/global/model/current_ld.dart';
 import 'package:unn_gps_logger/src/global/ui/widgets/fields/custom_textfield.dart';
@@ -34,15 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         backgroundColor: AppColors.primaryColorBackground,
         actions: [
-          IconButton(
-              onPressed: () {
-                controller.changeTrackingMode();
-              },
-              icon: Icon(
-                Icons.brightness_auto_rounded,
-                color:
-                    controller.isAuto.value ? AppColors.white : AppColors.grey,
-              )),
+          IconButton(onPressed: () {
+            controller.changeTrackingMode();
+          }, icon: Obx(() {
+            return Icon(
+              Icons.brightness_auto_rounded,
+              color: controller.isAuto.value ? AppColors.white : AppColors.grey,
+            );
+          })),
           IconButton(
               onPressed: () {
                 Ui.showBottomSheet(children: [
@@ -256,5 +256,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    LogController.saveCLDS(controller.clds);
+    super.dispose();
   }
 }

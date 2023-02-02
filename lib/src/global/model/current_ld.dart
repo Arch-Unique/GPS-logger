@@ -21,7 +21,7 @@ class CurrentLD {
 
   @override
   String toString() {
-    return "$time, $lat , $lng, $acc, $sat, $head, $spd, $alt, $rssi, $snr";
+    return "$time, $lat , $lng, $acc, $sat, $head, $spd, $alt, $rssi, $snr \n";
   }
 
   double get rawLat => double.parse(lat ?? "0");

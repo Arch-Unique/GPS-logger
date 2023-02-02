@@ -18,7 +18,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return SinglePageScaffold(
-      title: "Track Points",
+      title: "History",
       child: FutureBuilder(
           future: LogController.getCLDS(),
           builder: (context, snp) {
