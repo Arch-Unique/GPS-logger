@@ -14,6 +14,7 @@ class LocationController extends GetxController {
   late StreamSubscription<LocationData> locationSubscription;
   Rx<CurrentLD> cld = CurrentLD().obs;
   RxInt sat = 0.obs;
+  int cdate = DateTime.now().millisecondsSinceEpoch;
 
   Future<void> setInitLocation() async {
     bool serviceEnabled = await location.serviceEnabled();
@@ -46,15 +47,22 @@ class LocationController extends GetxController {
     super.onClose();
   }
 
+  int gcdate() {
+    return DateTime.now().millisecondsSinceEpoch;
+  }
+
   void listenToChangesInLocation() {
     rawGnss.gnssStatusEvents.listen((event) {
       sat.value = event.satelliteCount ?? 0;
     });
     location.onLocationChanged.listen((LocationData cl) {
       Loc c = k.filter(Loc(cl.latitude!, cl.longitude!));
-      cld.value = CurrentLD.fromLocationData(cl);
-      cld.value.lat = c.latitude.toString();
-      cld.value.lng = c.longitude.toString();
+      if (gcdate() - cdate > 5000) {
+        cld.value = CurrentLD.fromLocationData(cl);
+        cld.value.lat = c.latitude.toString();
+        cld.value.lng = c.longitude.toString();
+        cdate = gcdate();
+      }
     });
   }
 }
