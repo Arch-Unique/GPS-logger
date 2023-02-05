@@ -2,12 +2,18 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:raw_gnss/raw_gnss.dart';
 import 'package:unn_gps_logger/src/global/model/current_ld.dart';
+import 'package:unn_gps_logger/src/utils/functions/haversine.dart';
+import 'package:unn_gps_logger/src/utils/functions/kalman.dart';
 
 class LocationController extends GetxController {
   Location location = Location();
+  RawGnss rawGnss = RawGnss();
+  KalmanFilter k = KalmanFilter();
   late StreamSubscription<LocationData> locationSubscription;
   Rx<CurrentLD> cld = CurrentLD().obs;
+  RxInt sat = 0.obs;
 
   Future<void> setInitLocation() async {
     bool serviceEnabled = await location.serviceEnabled();
@@ -22,7 +28,7 @@ class LocationController extends GetxController {
 
     LocationData ld = await location.getLocation();
     cld.value = CurrentLD.fromLocationData(ld);
-    location.changeSettings(interval: 60000);
+    location.changeSettings(interval: 1000, distanceFilter: 1);
     location.enableBackgroundMode(enable: true);
 
     listenToChangesInLocation();
@@ -41,8 +47,14 @@ class LocationController extends GetxController {
   }
 
   void listenToChangesInLocation() {
-    location.onLocationChanged.listen((LocationData cl) async {
+    rawGnss.gnssStatusEvents.listen((event) {
+      sat.value = event.satelliteCount ?? 0;
+    });
+    location.onLocationChanged.listen((LocationData cl) {
+      Loc c = k.filter(Loc(cl.latitude!, cl.longitude!));
       cld.value = CurrentLD.fromLocationData(cl);
+      cld.value.lat = c.latitude.toString();
+      cld.value.lng = c.longitude.toString();
     });
   }
 }

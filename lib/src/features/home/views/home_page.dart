@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
               Obx(() {
                 return RowCell(
-                    "Satellites", controller.locationController.cld.value.sat!);
+                    "Satellites", "${controller.locationController.sat.value}");
               }),
               Obx(() {
                 return RowCell(
