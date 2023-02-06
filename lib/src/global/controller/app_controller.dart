@@ -161,6 +161,10 @@ class AppController extends GetxController {
 
   saveTrackPoint() {
     final cl = locationController.cld.value;
+    final dist = cl.distance(locs.value);
+    final sat = locationController.sat.value;
+    cl.sat = sat.toString();
+    cl.dst = dist.toString();
     clds.add(cl);
     connection?.output.add(ascii.encode(cl.toString()));
   }

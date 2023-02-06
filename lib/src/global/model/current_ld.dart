@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:unn_gps_logger/src/utils/functions/haversine.dart';
 
 class CurrentLD {
-  String? lat, lng, acc, time, sat, head, spd, alt, rssi, snr;
+  String? lat, lng, acc, time, sat, head, spd, alt, rssi, snr, dst;
 
   CurrentLD(
       {this.lat = "",
@@ -15,13 +15,14 @@ class CurrentLD {
       this.sat = "0",
       this.head = "0",
       this.spd = "0",
+      this.dst = "0",
       this.rssi = "0",
       this.snr = "0",
       this.alt = "0"});
 
   @override
   String toString() {
-    return "$time, $lat , $lng, $acc, $sat, $head, $spd, $alt, $rssi, $snr \n";
+    return "$time, $lat , $lng, $acc, $sat, $head, $spd, $alt,$dst, $rssi, $snr \n";
   }
 
   double get rawLat => double.parse(lat ?? "0");
