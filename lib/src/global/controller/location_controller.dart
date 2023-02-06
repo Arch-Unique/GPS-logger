@@ -53,8 +53,8 @@ class LocationController extends GetxController {
     location.onLocationChanged.listen((LocationData cl) {
       Loc c = k.filter(Loc(cl.latitude!, cl.longitude!));
       cld.value = CurrentLD.fromLocationData(cl);
-      cld.value.lat = c.latitude.toString();
-      cld.value.lng = c.longitude.toString();
+      cld.value.lat = c.latitude.toStringAsFixed(8);
+      cld.value.lng = c.longitude.toStringAsFixed(8);
     });
   }
 }

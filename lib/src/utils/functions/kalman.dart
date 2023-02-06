@@ -11,8 +11,8 @@ class KalmanFilter {
   double measurementNoiseLng;
 
   KalmanFilter({
-    this.processNoiseLat = 0.1,
-    this.processNoiseLng = 0.1,
+    this.processNoiseLat = 0.000001,
+    this.processNoiseLng = 0.000001,
     this.measurementNoiseLat = 0.000001,
     this.measurementNoiseLng = 0.000001,
     this.lastErrorCovarianceLat = 1,
