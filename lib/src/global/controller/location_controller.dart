@@ -55,14 +55,14 @@ class LocationController extends GetxController {
     rawGnss.gnssStatusEvents.listen((event) {
       sat.value = event.satelliteCount ?? 0;
     });
-    location.onLocationChanged.listen((LocationData cl) {
-      Loc c = k.filter(Loc(cl.latitude!, cl.longitude!));
-      if (gcdate() - cdate > 5000) {
-        cld.value = CurrentLD.fromLocationData(cl);
-        cld.value.lat = c.latitude.toString();
-        cld.value.lng = c.longitude.toString();
-        cdate = gcdate();
-      }
-    });
+    // location.onLocationChanged.listen((LocationData cl) {
+    //   Loc c = k.filter(Loc(cl.latitude!, cl.longitude!));
+    //   if (gcdate() - cdate > 5000) {
+    //     cld.value = CurrentLD.fromLocationData(cl);
+    //     cld.value.lat = c.latitude.toString();
+    //     cld.value.lng = c.longitude.toString();
+    //     cdate = gcdate();
+    //   }
+    // });
   }
 }

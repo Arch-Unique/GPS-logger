@@ -8,8 +8,8 @@ class CurrentLD {
   String? lat, lng, acc, time, sat, head, spd, alt, rssi, snr;
 
   CurrentLD(
-      {this.lat = "",
-      this.lng = "",
+      {this.lat = "0",
+      this.lng = "0",
       this.acc = "0",
       this.time = "0",
       this.sat = "0",
@@ -35,18 +35,18 @@ class CurrentLD {
     return d.toStringAsFixed(2);
   }
 
-  factory CurrentLD.fromLocationData(LocationData ld) {
+  factory CurrentLD.fromLocationData(LocationData? ld) {
     return CurrentLD(
-        lat: ld.latitude?.toString() ?? "0",
-        lng: ld.longitude?.toString() ?? "0",
-        acc: ld.accuracy?.toStringAsFixed(2) ?? "0",
-        time: ld.time == null
-            ? ld.time.toString()
+        lat: ld?.latitude?.toString() ?? "0",
+        lng: ld?.longitude?.toString() ?? "0",
+        acc: ld?.accuracy?.toStringAsFixed(2) ?? "0",
+        time: ld?.time == null
+            ? ld?.time.toString()
             : DateFormat.Hms()
-                .format(DateTime.fromMillisecondsSinceEpoch(ld.time!.toInt())),
-        sat: ld.satelliteNumber?.toString() ?? "0",
-        head: ld.heading?.toStringAsFixed(2) ?? "0",
-        alt: ld.altitude?.toStringAsFixed(2) ?? "0",
-        spd: ld.speed?.toStringAsFixed(2) ?? "0");
+                .format(DateTime.fromMillisecondsSinceEpoch(ld!.time!.toInt())),
+        sat: ld?.satelliteNumber?.toString() ?? "0",
+        head: ld?.heading?.toStringAsFixed(2) ?? "0",
+        alt: ld?.altitude?.toStringAsFixed(2) ?? "0",
+        spd: ld?.speed?.toStringAsFixed(2) ?? "0");
   }
 }

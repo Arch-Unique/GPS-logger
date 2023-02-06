@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
 import 'package:unn_gps_logger/src/features/home/views/history_page.dart';
 import 'package:unn_gps_logger/src/features/home/views/widgets/custom_dropdown.dart';
 import 'package:unn_gps_logger/src/features/home/views/widgets/trackpoint_list.dart';
@@ -217,40 +218,28 @@ class _HomeScreenState extends State<HomeScreen> {
               Ui.boxHeight(24),
               Obx(() {
                 return RowCell(
-                    "Latitude", controller.locationController.cld.value.lat!);
-              }),
-              Obx(() {
-                return RowCell(
-                    "Longitude", controller.locationController.cld.value.lng!);
-              }),
-              Obx(() {
-                return RowCell("Altitude",
-                    "${controller.locationController.cld.value.alt!} m");
-              }),
-              Obx(() {
-                return RowCell("Accuracy",
-                    "${controller.locationController.cld.value.acc!} m");
-              }),
-              Obx(() {
-                return RowCell(
                     "Satellites", "${controller.locationController.sat.value}");
               }),
-              Obx(() {
-                return RowCell(
-                    "Heading", controller.locationController.cld.value.head!);
-              }),
-              Obx(() {
-                return RowCell("Speed",
-                    "${controller.locationController.cld.value.spd!} m/s");
-              }),
-              Obx(() {
-                return RowCell(
-                    "Time", controller.locationController.cld.value.time!);
-              }),
-              Obx(() {
-                return RowCell("Distance",
-                    "${controller.locationController.cld.value.distance(controller.locs.value)} m");
-              }),
+              Ui.boxHeight(24),
+              StreamBuilder<LocationData>(
+                  stream:
+                      controller.locationController.location.onLocationChanged,
+                  builder: (context, snapshot) {
+                    CurrentLD cld = CurrentLD.fromLocationData(snapshot.data);
+                    return Column(
+                      children: [
+                        RowCell("Latitude", cld.lat!),
+                        RowCell("Longitude", cld.lng!),
+                        RowCell("Altitude", "${cld.alt!} m"),
+                        RowCell("Accuracy", "${cld.acc!} m"),
+                        RowCell("Heading", cld.head!),
+                        RowCell("Speed", "${cld.spd!} m/s"),
+                        RowCell("Time", cld.time!),
+                        RowCell("Distance",
+                            "${cld.distance(controller.locs.value)} m")
+                      ],
+                    );
+                  }),
             ],
           ),
         ),
