@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unn_gps_logger/src/app/theme/colors.dart';
 import 'package:unn_gps_logger/src/features/home/views/home_page.dart';
 import 'package:unn_gps_logger/src/global/controller/location_controller.dart';
@@ -15,6 +16,7 @@ void main() async {
     statusBarColor: AppColors.black.withOpacity(0),
     statusBarIconBrightness: Brightness.dark,
   ));
+  await GetStorage.init();
   await [
     Permission.bluetoothConnect,
     Permission.bluetoothScan,

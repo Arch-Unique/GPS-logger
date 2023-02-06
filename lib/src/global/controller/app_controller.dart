@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:intl/intl.dart';
 import 'package:collection/collection.dart';
@@ -22,6 +23,10 @@ class AppController extends GetxController {
   RxBool hasStarted = false.obs;
   Rx<Duration> duration = Duration(seconds: 60).obs;
   RxList<CurrentLD> clds = <CurrentLD>[].obs;
+  final _pref = GetStorage();
+  static final String UGREFLAT = "ugreflat";
+  static final String UGREFLNG = "ugreflng";
+  static final String UGTIME = "ugtime";
 
   TextEditingController timeTextController = TextEditingController();
   TextEditingController lngTextController = TextEditingController();
@@ -37,6 +42,7 @@ class AppController extends GetxController {
 
   @override
   void onInit() {
+    setRefLoc();
     FlutterBluetoothSerial.instance.state.then((state) {
       bluetoothState.value = state;
     });
@@ -57,6 +63,12 @@ class AppController extends GetxController {
       getPairedDevices();
     });
     super.onInit();
+  }
+
+  setRefLoc() {
+    latTextController.text = _pref.read(UGREFLAT) ?? "";
+    lngTextController.text = _pref.read(UGREFLNG) ?? "";
+    changeDuration(_pref.read(UGTIME) ?? 0);
   }
 
   Future<void> enableBluetooth() async {
@@ -83,6 +95,8 @@ class AppController extends GetxController {
     if (latTextController.value.text == "") return;
     double d = double.parse(lngTextController.value.text);
     double g = double.parse(latTextController.value.text);
+    _pref.write(UGREFLAT, d.toStringAsFixed(8));
+    _pref.write(UGREFLNG, d.toStringAsFixed(8));
     locs.value = Loc(d, g);
   }
 
@@ -128,9 +142,10 @@ class AppController extends GetxController {
   }
 
   changeDuration(int i) {
-    if (i < 5) i = 5;
+    if (i < 60) i = 60;
     if (i > 900) i = 900;
     duration.value = Duration(seconds: i);
+    _pref.write(UGTIME, i);
   }
 
   startTracking() {
