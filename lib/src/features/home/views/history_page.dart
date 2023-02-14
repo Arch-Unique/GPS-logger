@@ -15,36 +15,46 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  List<MCurrentLD> mcld = [];
+
+  Future<void> getCld() async {
+    mcld = await LogController.getCLDS();
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    getCld();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SinglePageScaffold(
       title: "History",
-      child: FutureBuilder(
-          future: LogController.getCLDS(),
-          builder: (context, snp) {
-            if (snp.data == null) {
-              return Center(child: AppText.thin("No History found"));
-            }
-            return ListView.builder(
+      child: mcld.isEmpty
+          ? Center(child: AppText.thin("No History found"))
+          : ListView.builder(
               itemBuilder: (ctx, i) {
                 return ListTile(
-                  title: AppText.medium(snp.data![i].nm),
-                  subtitle: AppText.thin(snp.data![i].fp),
+                  title: AppText.medium(mcld[i].nm),
+                  subtitle: AppText.thin(mcld[i].fp),
                   trailing: IconButton(
                       onPressed: () {
-                        LogController.shareCLDS([snp.data![i].fp]);
+                        LogController.shareCLDS([mcld[i].fp]);
                       },
                       icon: Icon(Icons.share, color: AppColors.white)),
                   onTap: () {
                     Get.to(TrackPointScreen(
-                      clds: snp.data![i].clds,
+                      clds: mcld[i].clds,
                     ));
                   },
                 );
               },
-              itemCount: snp.data!.length,
-            );
-          }),
+              itemCount: mcld.length,
+            ),
     );
   }
 }
