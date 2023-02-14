@@ -57,22 +57,28 @@ class LogController {
 
   static List<CurrentLD> convertFileToCLD(File file) {
     final s = file.readAsLinesSync();
+    print(s);
+    List<CurrentLD> clds = [];
 
-    final clds = s.map((e) {
-      List<String> cldstr = e.split(",");
-      return CurrentLD(
-        time: cldstr[0],
-        lat: cldstr[1],
-        lng: cldstr[2],
-        acc: cldstr[3],
-        sat: cldstr[4],
-        head: cldstr[5],
-        spd: cldstr[6],
-        alt: cldstr[7],
-        rssi: cldstr[8],
-        snr: cldstr[9],
-      );
-    }).toList();
+    for (var e in s) {
+      if (e.isNotEmpty) {
+        List<String> cldstr = e.split(",");
+        print(cldstr);
+        final cld = CurrentLD(
+          time: cldstr[0],
+          lat: cldstr[1],
+          lng: cldstr[2],
+          acc: cldstr[3],
+          sat: cldstr[4],
+          head: cldstr[5],
+          spd: cldstr[6],
+          alt: cldstr[7],
+          rssi: cldstr[8],
+          snr: cldstr[9],
+        );
+        clds.add(cld);
+      }
+    }
     return clds;
   }
 }
