@@ -36,7 +36,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       title: "History",
       child: mcld.isEmpty
           ? Center(child: AppText.thin("No History found"))
-          : ListView.builder(
+          : ListView.separated(
               itemBuilder: (ctx, i) {
                 return ListTile(
                   title: AppText.medium(mcld[i].nm),
@@ -52,6 +52,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ));
                   },
                 );
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
               },
               itemCount: mcld.length,
             ),
