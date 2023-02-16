@@ -46,6 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               onPressed: () {
                 Ui.showBottomSheet(children: [
+                  FilledButton.white(() {
+                    controller.lngTextController.text =
+                        controller.locationController.cld.value.lng!;
+                    controller.latTextController.text =
+                        controller.locationController.cld.value.lat!;
+                    controller.saveReference();
+                    Get.back();
+                  }, "Set Automatically"),
+                  Ui.boxHeight(12),
+                  AppText.bold("OR"),
                   CustomTextField(
                     "5.465776",
                     "Enter Longitude Value",
@@ -58,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     controller.latTextController,
                     varl: FPL.number,
                   ),
-                  Ui.boxHeight(24),
+                  Ui.boxHeight(12),
                   FilledButton.white(() {
                     controller.saveReference();
                     Get.back();
@@ -251,7 +261,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 return RowCell("Distance",
                     "${controller.locationController.cld.value.distance(controller.locs.value)} m");
               }),
-              Ui.boxHeight(24),
             ],
           ),
         ),

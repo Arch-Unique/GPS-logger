@@ -66,9 +66,12 @@ class AppController extends GetxController {
   }
 
   setRefLoc() {
-    latTextController.text = _pref.read(UGREFLAT) ?? "";
-    lngTextController.text = _pref.read(UGREFLNG) ?? "";
+    latTextController.text = _pref.read(UGREFLAT) ?? "0";
+    lngTextController.text = _pref.read(UGREFLNG) ?? "0";
     changeDuration(_pref.read(UGTIME) ?? 0);
+    double d = double.parse(lngTextController.value.text);
+    double g = double.parse(latTextController.value.text);
+    locs.value = Loc(g, d);
   }
 
   Future<void> enableBluetooth() async {
@@ -95,9 +98,9 @@ class AppController extends GetxController {
     if (latTextController.value.text == "") return;
     double d = double.parse(lngTextController.value.text);
     double g = double.parse(latTextController.value.text);
-    _pref.write(UGREFLAT, d.toStringAsFixed(8));
+    _pref.write(UGREFLAT, g.toStringAsFixed(8));
     _pref.write(UGREFLNG, d.toStringAsFixed(8));
-    locs.value = Loc(d, g);
+    locs.value = Loc(g, d);
   }
 
   Future<void> getPairedDevices() async {
@@ -139,6 +142,11 @@ class AppController extends GetxController {
 
   changeTrackingMode() {
     isAuto.value = !isAuto.value;
+    if (isAuto.value) {
+      Ui.showSnackBar("Auto mode set");
+    } else {
+      Ui.showSnackBar("Manual mode set");
+    }
   }
 
   changeDuration(int i) {

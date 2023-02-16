@@ -33,8 +33,11 @@ class _TrackPointScreenState extends State<TrackPointScreen> {
           return Ui.padding(
               padding: 8,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText.thin("${i + 1}  "),
+                  widget.clds == null
+                      ? AppText.thin("${i + 1}  ")
+                      : AppText.thin("$i  "),
                   Ui.boxWidth(24),
                   SizedText.thin(
                     cld[i].toString(),
