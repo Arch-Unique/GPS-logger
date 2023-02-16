@@ -143,9 +143,9 @@ class AppController extends GetxController {
   changeTrackingMode() {
     isAuto.value = !isAuto.value;
     if (isAuto.value) {
-      Ui.showSnackBar("Auto mode set");
+      Ui.showSnackBar("Auto mode set", isError: false);
     } else {
-      Ui.showSnackBar("Manual mode set");
+      Ui.showSnackBar("Manual mode set", isError: false);
     }
   }
 

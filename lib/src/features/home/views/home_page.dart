@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }, "Set Automatically"),
                   Ui.boxHeight(12),
                   AppText.bold("OR"),
+                  Ui.boxHeight(12),
                   CustomTextField(
                     "5.465776",
                     "Enter Longitude Value",
@@ -68,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     controller.latTextController,
                     varl: FPL.number,
                   ),
-                  Ui.boxHeight(12),
                   FilledButton.white(() {
                     controller.saveReference();
                     Get.back();
