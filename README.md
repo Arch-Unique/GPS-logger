@@ -52,7 +52,7 @@ flutter build apk --no-shrink
 
 - To share the location data as a .txt file, click on the History icon and choose the logs you want to share
 - You can also view the previous trackpoints in the history.
-- To communicate with an ESP32 Bluetooth device, make sure the bluetooth is ON, click on the bluetooth icon to switch ON or choose the bluettoth devices.Once the ESP32 device comes up, click on it and choose it again from the list.\
+- To communicate with an ESP32 Bluetooth device, make sure the bluetooth is ON, click on the bluetooth icon to switch it ON or choose the bluetooth devices.Once the ESP32 device comes up, click on it and choose it again from the list.\
   <img src="assets/blu.png" width=360>
 - Once connected, data is sent to the bluetooth device and then the rssi and snr from the LoRa is sent back to the app.
 
@@ -64,3 +64,8 @@ Fork the repository
 Create a new branch
 Make your changes
 Submit a pull request
+
+# GPS Bluetooth Server
+
+Just run the ESP32 code in the folder esp32,\
+replace the demo with the procedure for using integrating LoRa with ESP32
