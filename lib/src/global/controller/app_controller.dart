@@ -124,6 +124,7 @@ class AppController extends GetxController {
       if (connection?.isConnected ?? false) {
         Ui.showSnackBar("Connected Successfully", isError: false);
         isConnected.value = true;
+
         listenToBle();
       }
     } on PlatformException {
@@ -135,6 +136,7 @@ class AppController extends GetxController {
   listenToBle() {
     connection?.input?.listen((event) {
       final d = ascii.decode(event).split(",");
+
       clds.last.rssi = d[0];
       clds.last.snr = d[1];
     });
@@ -174,7 +176,9 @@ class AppController extends GetxController {
     cl.sat = sat.toString();
     cl.dst = dist.toString();
     clds.add(cl);
-    connection?.output.add(ascii.encode(cl.toString()));
+    if (connection?.isConnected ?? false) {
+      connection?.output.add(ascii.encode(cl.toString()));
+    }
   }
 
   stopTracking() {

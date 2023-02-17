@@ -25,8 +25,8 @@ class CurrentLD {
     return "$time, $lat , $lng, $acc, $sat, $head, $spd, $alt,$dst, $rssi, $snr \n";
   }
 
-  double get rawLat => double.parse(lat ?? "0");
-  double get rawLng => double.parse(lng ?? "0");
+  double get rawLat => double.parse(lat ?? "0.0");
+  double get rawLng => double.parse(lng ?? "0.0");
 
   String distance(Loc lc) {
     if (lc.latitude == 0) return "0";
