@@ -261,6 +261,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return RowCell("Distance",
                     "${controller.locationController.cld.value.distance(controller.locs.value)} m");
               }),
+              FilledButton.white(() async {
+                await LogController.saveCLDS(controller.clds);
+              }, "Save TrackPoints")
             ],
           ),
         ),

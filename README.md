@@ -21,7 +21,7 @@ This is a GPS logger app written in Flutter that allows users to log their curre
 - Open the project in Android Studio or Visual Studio Code
 - Run the commands below
 
-```
+```dart
 flutter pub get
 flutter build apk --no-shrink
 ```
