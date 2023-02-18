@@ -20,7 +20,7 @@ class LogController {
         mode: FileMode.append,
       );
     } else {
-      s = "time, latitude, longitude, accuracy, satellites, heading, speed, altitude, RSSI, SNR \n$s";
+      s = "time, latitude, longitude, accuracy, satellites, heading, speed, altitude,distance, RSSI, SNR \n$s";
       await file.writeAsString(
         s,
         mode: FileMode.write,

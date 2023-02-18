@@ -29,14 +29,15 @@ void loop()
   }
   delay(100);
 
+  // *************START OF REPLACE*************
   // get the rssi and snr value from the LoRa
   // NB , it must be sent as
   //  [rssi, snr]
-  // as shown below
-  // below is just a demo
+  // as shown below which is just a demo
   String rssi = "10" + String(cnt);
   String snr = "11" + String(cnt);
   String rsmsg = rssi + "," + snr;
+  //****************END OF REPLACE*******************
 
   // convert the string to charArray
   char rdata[rsmsg.length() + 1];
