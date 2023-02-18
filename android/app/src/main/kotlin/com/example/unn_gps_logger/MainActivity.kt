@@ -1,4 +1,4 @@
-package com.example.unn_gps_logger
+package com.tetfund.gps_logger
 
 import io.flutter.embedding.android.FlutterActivity
 
