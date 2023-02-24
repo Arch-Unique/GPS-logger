@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
     int a = isUserVal(controller.value.text) ? 2 : 0;
     return StatefulBuilder(builder: (context, setState) {
       return SizedBox(
-        width: Get.width - 48,
+        width: Ui.width(context) - 48,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,7 +253,7 @@ class CustomTextField extends StatelessWidget {
     cont.text = curOption;
     return StatefulBuilder(builder: (context, setState) {
       return SizedBox(
-        width: Get.width - 48,
+        width: Ui.width(context) - 48,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

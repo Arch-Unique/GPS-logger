@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:raw_gnss/gnss_status_model.dart';
 import 'package:raw_gnss/raw_gnss.dart';
 import 'package:unn_gps_logger/src/global/model/current_ld.dart';
 import 'package:unn_gps_logger/src/utils/functions/haversine.dart';
@@ -12,6 +13,7 @@ class LocationController extends GetxController {
   RawGnss rawGnss = RawGnss();
   KalmanFilter k = KalmanFilter();
   late StreamSubscription<LocationData> locationSubscription;
+  late StreamSubscription<GnssStatusModel> gnssSubscription;
   Rx<CurrentLD> cld = CurrentLD().obs;
   RxInt sat = 0.obs;
 
@@ -43,14 +45,16 @@ class LocationController extends GetxController {
   @override
   void onClose() {
     locationSubscription.cancel();
+    gnssSubscription.cancel();
+    print("unsubscribed");
     super.onClose();
   }
 
   void listenToChangesInLocation() {
-    rawGnss.gnssStatusEvents.listen((event) {
+    gnssSubscription = rawGnss.gnssStatusEvents.listen((event) {
       sat.value = event.satelliteCount ?? 0;
     });
-    location.onLocationChanged.listen((LocationData cl) {
+    locationSubscription = location.onLocationChanged.listen((LocationData cl) {
       Loc c = k.filter(Loc(cl.latitude!, cl.longitude!));
       cld.value = CurrentLD.fromLocationData(cl);
       cld.value.lat = c.latitude.toStringAsFixed(8);

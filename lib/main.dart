@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:unn_gps_logger/src/app/theme/colors.dart';
+import 'package:unn_gps_logger/src/features/home/views/disclosure.dart';
 import 'package:unn_gps_logger/src/features/home/views/home_page.dart';
 import 'package:unn_gps_logger/src/global/controller/location_controller.dart';
 import 'package:unn_gps_logger/src/global/controller/app_controller.dart';
@@ -17,13 +18,7 @@ void main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
   await GetStorage.init();
-  await [
-    Permission.bluetoothConnect,
-    Permission.bluetoothScan,
-    Permission.bluetoothAdvertise,
-    Permission.location,
-    Permission.locationAlways
-  ].request();
+
   runApp(const MyApp());
 }
 
@@ -32,8 +27,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(LocationController());
-    Get.put(AppController());
+    Widget hscreen = ProminentDisclosurePage();
+    if (GetStorage().read<bool>("UGPROM") ?? false) {
+      Get.put(LocationController());
+      Get.put(AppController());
+      hscreen = HomeScreen();
+    }
 
     return GetMaterialApp(
       title: 'GPS Logger',
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
         fontFamily: Assets.appFontFamily,
         scaffoldBackgroundColor: AppColors.primaryColor,
       ),
-      home: HomeScreen(),
+      home: hscreen,
     );
   }
 }

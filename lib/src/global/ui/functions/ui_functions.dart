@@ -40,6 +40,14 @@ abstract class Ui {
         width: 1,
       );
 
+  static double width(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  static double height(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
   static Scrollbar scrollbBar({required Widget child}) {
     return Scrollbar(radius: Radius.circular(8), child: child);
   }
@@ -167,8 +175,4 @@ abstract class Ui {
         fontWeight: FontWeight.w500,
         fontFamily: Assets.appFontFamily,
       );
-
-  static double heightPercent(double i) => Get.height.percent(i);
-
-  static double widthPercent(double i) => Get.width.percent(i);
 }

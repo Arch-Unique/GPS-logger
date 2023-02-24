@@ -73,8 +73,9 @@ class LogController {
           head: cldstr[5],
           spd: cldstr[6],
           alt: cldstr[7],
-          rssi: cldstr[8],
-          snr: cldstr[9],
+          dst: cldstr[8],
+          rssi: cldstr[9],
+          snr: cldstr[10],
         );
         clds.add(cld);
       }

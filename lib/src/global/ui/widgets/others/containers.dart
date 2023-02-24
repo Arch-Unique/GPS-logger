@@ -47,12 +47,14 @@ class CurvedContainer extends StatelessWidget {
 class SinglePageScaffold extends StatelessWidget {
   final String? title;
   final Widget? child;
-  const SinglePageScaffold({this.title, this.child, super.key});
+  final bool isBack;
+  const SinglePageScaffold(
+      {this.title, this.child, this.isBack = true, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: backAppBar(title: title),
+      appBar: backAppBar(title: title, isBack: isBack),
       body: child,
     );
   }
@@ -66,7 +68,7 @@ class SizedText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Get.width - space,
+      width: MediaQuery.of(context).size.width - space,
       child: child,
     );
   }

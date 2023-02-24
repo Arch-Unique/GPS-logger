@@ -60,7 +60,7 @@ class FilledButton extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   vertical: 14,
                 ),
-                width: isWide ? double.maxFinite : (Get.width / 2) - 36,
+                width: isWide ? double.maxFinite : (Ui.width(context) / 2) - 36,
                 child: Center(
                   child: !disabled
                       ? child ??

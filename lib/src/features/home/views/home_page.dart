@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Ui.boxHeight(24),
               FilledButton.white(() async {
                 await LogController.saveCLDS(controller.clds);
-              }, "Save TrackPoints")
+              }, "Save To File")
             ],
           ),
         ),

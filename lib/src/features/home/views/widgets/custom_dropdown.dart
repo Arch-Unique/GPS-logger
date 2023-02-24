@@ -69,7 +69,9 @@ class RowCell extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: (Get.width - 48) / 2, child: AppText.bold("$k :  ")),
+          SizedBox(
+              width: (Ui.width(context) - 48) / 2,
+              child: AppText.bold("$k :  ")),
           AppText.thin(v)
         ],
       ),
